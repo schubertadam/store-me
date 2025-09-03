@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Exceptions\LockedOutException;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\Login\LoginStoreRequest;
+use App\Services\AuthService;
+use Illuminate\Contracts\View\View;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+class LoginController extends Controller
+{
+    private AuthService $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
+    public function index(): View
+    {
+        return view('auth.login.index');
+    }
+
+    /**
+     * @throws LockedOutException
+     */
+    public function store(LoginStoreRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+
+        $this->authService->login($data['email'], $data['password'], $request->ip());
+
+        return redirect()->intended(route('dashboard'));
+    }
+}
