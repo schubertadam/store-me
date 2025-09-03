@@ -33,6 +33,8 @@ class AuthService
         ];
 
         if (!auth()->attempt($credentials, $remember)) {
+            RateLimiter::hit($throttleKey, self::MAX_LOGIN_ATTEMPTS);
+
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
                 'custom' => 'Attempts left: ' . RateLimiter::retriesLeft($throttleKey, self::MAX_LOGIN_ATTEMPTS)
