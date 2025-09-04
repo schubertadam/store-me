@@ -30,7 +30,7 @@ class LoginController extends Controller
     {
         $data = $request->validated();
 
-        $this->authService->login($data['email'], $data['password'], $request->ip());
+        $this->authService->login($data['email'], $data['password'], session()->getId());
 
         return redirect()->intended(route('dashboard'));
     }

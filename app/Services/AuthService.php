@@ -14,14 +14,14 @@ class AuthService
      * Logs in the user with the provided credentials and IP address
      * @param string $email
      * @param string $password
-     * @param string $ip
+     * @param string $sessionId
      * @param bool $remember
      * @return void
      * @throws LockedOutException if the user has reached the maximum login attempts
      */
-    public function login(string $email, string $password, string $ip, bool $remember = false): void
+    public function login(string $email, string $password, string $sessionId, bool $remember = false): void
     {
-        $throttleKey = $ip; // if needed later can be change
+        $throttleKey = $sessionId; // if needed later can be change
 
         if (RateLimiter::tooManyAttempts($throttleKey, self::MAX_LOGIN_ATTEMPTS - 1)) {
             throw new LockedOutException($throttleKey);
@@ -33,7 +33,7 @@ class AuthService
         ];
 
         if (!auth()->attempt($credentials, $remember)) {
-            RateLimiter::hit($throttleKey, self::MAX_LOGIN_ATTEMPTS);
+            RateLimiter::hit($throttleKey, 60 * 5);
 
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
