@@ -9,4 +9,6 @@
         </div>
         @enderror
     </x-admin.form>
+    <hr>
+    <a href="{{ route('register.index') }}">Register</a>
 </x-layouts.auth>
