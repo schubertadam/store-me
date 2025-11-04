@@ -7,4 +7,6 @@
             <p>{{ $message }}</p>
         @enderror
     </x-partials.admin.form>
+    <hr>
+    <a href="{{ route('register.index') }}">Register</a>
 </x-layouts.auth>
