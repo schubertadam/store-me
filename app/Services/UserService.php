@@ -23,4 +23,16 @@ class UserService
 
         return $user->markEmailAsVerified();
     }
+
+    public function find(string $column, mixed $value): ?User
+    {
+        return User::query()->where($column, $value)->first();
+    }
+
+    public function update(User $user, array $data): User
+    {
+        $user->update($data);
+
+        return $user;
+    }
 }
