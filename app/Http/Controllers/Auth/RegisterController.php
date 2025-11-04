@@ -22,7 +22,7 @@ class RegisterController extends Controller
         $this->tokenService = $tokenService;
     }
 
-    public function index(): View
+    public function create(): View
     {
         return view('auth.register');
     }

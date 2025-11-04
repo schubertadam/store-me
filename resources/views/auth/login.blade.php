@@ -8,5 +8,5 @@
         @enderror
     </x-partials.admin.form>
     <hr>
-    <a href="{{ route('register.index') }}">Register</a>
+    <a href="{{ route('register.create') }}">Register</a>
 </x-layouts.auth>
