@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ResetPasswordUpdateRequest;
+use App\Http\Requests\Auth\ResetPasswordUpdateRequest;
 use App\Models\Token;
 use App\Services\UserService;
 
