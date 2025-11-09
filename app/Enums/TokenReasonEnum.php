@@ -6,4 +6,5 @@ enum TokenReasonEnum: string
 {
     case REGISTRATION = 'registration';
     case PASSWORD_RESET = 'password-reset';
+    case INVITATION = 'invitation';
 }

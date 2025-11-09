@@ -27,3 +27,8 @@ Route::group(['prefix' => 'reset-password', 'as' => 'reset-password.'], function
     Route::get('{token}', [ResetPasswordController::class, 'edit'])->name('edit');
     Route::patch('{token}', [ResetPasswordController::class, 'update'])->name('update');
 });
+
+Route::group(['prefix' => '/invite/{token}', 'as' => 'invite.'], function () {
+    Route::get('', [ResetPasswordController::class, 'edit'])->name('edit');
+    Route::patch('', [ResetPasswordController::class, 'update'])->name('update');
+});
