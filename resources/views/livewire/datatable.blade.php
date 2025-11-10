@@ -47,22 +47,52 @@
                         @foreach ($columns as $fieldName => $label)
                             <td>
                                 @if ($fieldName === '_actions')
+
                                     <div class="d-flex">
                                         @foreach ($this->actions($record) as $action)
-                                            <a
-                                                {{-- Route-os link vagy Livewire akció --}}
-                                                @if ($action['type'] === 'livewire')
-                                                    wire:click.prevent="{{ $action['method'] }}({{ $record->id }})"
-                                                href="#"
-                                                @else
-                                                    href="{{ $action['route'] ?? '#' }}"
-                                                @endif
+                                            @php
+                                                // Speciális flag a delete formhoz
+                                                $isDeleteForm = ($action['type'] ?? 'link') === 'delete-form';
+                                            @endphp
 
-                                                class="btn btn-sm btn-{{ $action['class'] ?? 'secondary' }} me-2"
-                                            >
-                                                <i class="fas fa-{{ $action['icon'] ?? 'cog' }}"></i>
-                                                <span class="d-none d-sm-inline">{{ $action['label'] }}</span>
-                                            </a>
+                                            {{-- 1. DELETE FORM INDÍTÁSA (HA SZÜKSÉGES) --}}
+                                            @if ($isDeleteForm)
+                                                {{-- Használjuk a korábban definiált route-ot, pl. users.destroy --}}
+                                                <form action="{{ $action['route'] }}"
+                                                      method="POST"
+                                                      onsubmit="return confirm('Biztosan törölni szeretnéd ezt az elemet?');"
+                                                      class="d-inline me-2" {{-- Bootstrap d-inline a gombok elrendezéséhez --}}>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    @endif
+
+                                                    {{-- 2. AKCIÓ GOMB MEGJELENÍTÉSE --}}
+                                                    <button
+                                                        @if ($action['type'] === 'livewire' || $isDeleteForm)
+                                                            {{-- Livewire akcióhoz wire:click, DELETE formhoz type="submit" --}}
+                                                            type="{{ $isDeleteForm ? 'submit' : 'button' }}"
+                                                        @if ($action['type'] === 'livewire')
+                                                            wire:click.prevent="{{ $action['method'] }}({{ $record->id }})"
+                                                        @endif
+                                                        @else
+                                                            type="button"
+                                                        @endif
+
+                                                        class="btn btn-sm btn-{{ $action['class'] ?? 'secondary' }} me-2"
+                                                        @if ($action['type'] === 'link')
+                                                            onclick="window.location.href='{{ $action['route'] ?? '#' }}'"
+                                                        @endif
+                                                    >
+                                                        {{-- Ikon és Szöveg --}}
+                                                        @if (isset($action['icon'])) <i class="fas fa-{{ $action['icon'] }}"></i> @endif
+                                                        @if (isset($action['label'])) <span class="ms-1 d-none d-sm-inline">{{ $action['label'] }}</span> @endif
+                                                    </button>
+
+                                                    {{-- 3. DELETE FORM BEZÁRÁSA --}}
+                                                    @if ($isDeleteForm)
+                                                </form>
+                                            @endif
+
                                         @endforeach
                                     </div>
 
