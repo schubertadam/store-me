@@ -33,6 +33,7 @@
             <ul>
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('users.index') }}">User management</a></li>
+                <li><a href="{{ route('categories.index') }}">Categories</a></li>
             </ul>
         </nav>
     </header>
