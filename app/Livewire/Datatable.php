@@ -23,6 +23,11 @@ abstract class Datatable extends Component
 
     abstract protected function actions(object $record): array;
 
+    public function formatColumnValue(object $record, string $fieldName): string
+    {
+        return data_get($record, $fieldName);
+    }
+
     public function updatingSearch(): void
     {
         $this->resetPage();

@@ -67,7 +67,7 @@
                                     </div>
 
                                 @else
-                                    {{ data_get($record, $fieldName) }}
+                                    {{ $this->formatColumnValue($record, $fieldName) }}
                                 @endif
                             </td>
                         @endforeach
