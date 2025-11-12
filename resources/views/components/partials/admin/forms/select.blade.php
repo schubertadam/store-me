@@ -1,23 +1,26 @@
 @props([
     'name',
     'label' => '',
-    'options' => [], // A választható opciók tömbje (érték => címke)
-    'value' => '',   // A már kiválasztott érték
+    'options' => [],
+    'value' => '',
     'divClass' => 'mb-3',
+    'searchable' => false, // <-- ÚJ PARAMÉTER (alapértelmezett: false)
 ])
 
 @php
-    // Címke generálása a 'name'-ből, ha hiányzik
+    // ... (egyéb @php logika: label generálás, classes beállítása) ...
+
+    // Hozzáadunk egy specifikus osztályt az inicializáláshoz
+    $selectClasses = trim(
+        'form-select ' .
+        ($attributes->get('class') ?? '') .
+        ($errors->has($name) ? ' is-invalid' : '') .
+        ($searchable ? ' select2-searchable' : '') // Csak akkor adjuk hozzá az osztályt, ha searchable
+    );
+
     if (empty($label)) {
         $label = ucfirst(str_replace('_', ' ', $name));
     }
-
-    // Input/Select CSS osztályok beállítása
-    $selectClasses = trim(
-        'form-select ' . // Bootstrap form-select class
-        ($attributes->get('class') ?? '') .
-        ($errors->has($name) ? ' is-invalid' : '')
-    );
 @endphp
 
 <div class="{{ $divClass }}">
@@ -30,14 +33,10 @@
         {{ $attributes->except('class') }}
         class="{{ $selectClasses }}"
     >
-        {{-- Alapértelmezett, üres opció --}}
         <option value="">Válasszon...</option>
-
-        {{-- Iterálás az átadott opciókon --}}
         @foreach ($options as $optionValue => $optionLabel)
             <option
                 value="{{ $optionValue }}"
-                {{-- Kétféle ellenőrzés: régi érték VAGY a props-ban átadott érték --}}
                 {{ (string)$optionValue === (string)old($name, $value) ? 'selected' : '' }}
             >
                 {{ $optionLabel }}
@@ -52,3 +51,17 @@
     @enderror
 
 </div>
+
+{{-- 2. JavaScript: Select2 Inicializálása --}}
+@if ($searchable)
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializáljuk a Select2-t az adott mezőre
+            $('#{{ $name }}').select2({
+                theme: "bootstrap-5",
+                placeholder: "Kezdj el gépelni a kereséshez...",
+                allowClear: true
+            });
+        });
+    </script>
+@endif
