@@ -46,4 +46,21 @@ class CategoryService
         $category->clearMediaCollection();
         $category->delete();
     }
+
+    public function buildCategoryTreeOptions($categories, $level = 0, &$options = []): array
+    {
+        // A behúzás előtagja, pl. "— — "
+        $prefix = str_repeat('— ', $level);
+
+        foreach ($categories as $category) {
+            // Hozzáadjuk az aktuális kategóriát a behúzással
+            $options[$category->id] = $prefix . $category->name;
+
+            // Ha van gyerek (children) kapcsolat, rekurzívan bejárjuk
+            if ($category->children->isNotEmpty()) {
+                $this->buildCategoryTreeOptions($category->children, $level + 1, $options);
+            }
+        }
+        return $options;
+    }
 }
