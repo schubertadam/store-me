@@ -42,13 +42,8 @@ class ProductController extends Controller
         $data = $request->validated();
         $product = Product::create($data);
 
-        if (isset($data['thumbnail'])) {
-            $this->fileService->upload($product, $data['thumbnail']);
-        }
-
-        if (isset($data['gallery'])) {
-            $this->fileService->uploadMany($product, $data['gallery']);
-        }
+        $this->fileService->upload($product, $data['thumbnail'], 'thumbnail');
+        $this->fileService->uploadMany($product, $data['gallery'], 'gallery');
 
         return redirect()->route('products.index');
     }
@@ -68,15 +63,8 @@ class ProductController extends Controller
         $data = $request->validated();
         $product->update($data);
 
-        if (isset($data['thumbnail'])) {
-            $this->fileService->delete($product, 'thumbnail');
-            $this->fileService->upload($product, $data['thumbnail']);
-        }
-
-        if (isset($data['gallery'])) {
-            $this->fileService->delete($product, 'gallery');
-            $this->fileService->uploadMany($product, $data['gallery']);
-        }
+        $this->fileService->upload($product, $data['thumbnail'], 'thumbnail');
+        $this->fileService->uploadMany($product, $data['gallery'], 'gallery');
 
         return redirect()->route('products.index');
     }

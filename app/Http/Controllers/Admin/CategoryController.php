@@ -33,9 +33,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->create($request->validated());
 
-        if ($request->hasFile('thumbnail')) {
-            $this->fileService->upload($category, $request->file('thumbnail'), 'thumbnail');
-        }
+        $this->fileService->upload($category, $request->file('thumbnail'), 'thumbnail');
 
         return redirect()->route('categories.index');
     }
@@ -52,10 +50,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->update($category, $request->validated());
 
-        if ($request->hasFile('thumbnail')) {
-            $this->fileService->delete($category, 'thumbnail');
-            $this->fileService->upload($category, $request->file('thumbnail'), 'thumbnail');
-        }
+        $this->fileService->upload($category, $request->file('thumbnail'), 'thumbnail');
 
         return redirect()->route('categories.index');
     }
