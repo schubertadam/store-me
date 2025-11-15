@@ -61,7 +61,7 @@
             data.append('image', file);
 
             $.ajax({
-                url: '',
+                url: '{{ route('summernote.upload') }}',
                 method: 'POST',
                 data: data,
                 processData: false,
@@ -70,6 +70,7 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 success: function (data) {
+                    console.log(data);
                     $('#{{ $name }}').summernote('insertImage', data.url);
                 },
                 error: function (xhr) {
