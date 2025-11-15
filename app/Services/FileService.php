@@ -46,18 +46,20 @@ class FileService
      * in the specified collection.
      *
      * @param HasMedia $model The model instance.
-     * @param array $files An array of UploadedFile objects (e.g., from request()->file('gallery')).
+     * @param array|null $files An array of UploadedFile objects (e.g., from request()->file('gallery')).
      * @param string $collection The name of the media collection (default: 'default').
      * @return void
      *
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      */
-    public function uploadMany(HasMedia $model, array $files, string $collection = 'default'): void
+    public function uploadMany(HasMedia $model, ?array $files, string $collection = 'default'): void
     {
-        foreach ($files as $file) {
-            // Calls the singular upload method, setting $single=false to prevent overwriting
-            $this->upload($model, $file, $collection, false);
+        if (!is_null($files)) {
+            foreach ($files as $file) {
+                // Calls the singular upload method, setting $single=false to prevent overwriting
+                $this->upload($model, $file, $collection, false);
+            }
         }
     }
 
