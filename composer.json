@@ -11,7 +11,8 @@
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "spatie/laravel-medialibrary": "^11.17",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "ext-intl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -27,7 +28,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
