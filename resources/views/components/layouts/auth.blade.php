@@ -64,8 +64,8 @@
 <script src="{{ asset('assets/libs/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/libs/jquery/jquery-3.6.1.min.js') }}"></script>
 
-<script src="{{ asset('assets/particles-js/particles.js') }}"></script>
-<script src="{{ asset('assets/particles-js/particles.app.js') }}"></script>
+<script src="{{ asset('assets/libs/particles-js/particles.js') }}"></script>
+<script src="{{ asset('assets/libs/particles-js/particles.app.js') }}"></script>
 <script src="{{ asset('assets/js/velzon/password-addon.init.js') }}"></script>
 </body>
 </html>
