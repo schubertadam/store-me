@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
 use App\Services\FileService;
+use Illuminate\View\View; // Használjuk a View típus-hintet
 
 class CategoryController extends Controller
 {
@@ -21,36 +22,36 @@ class CategoryController extends Controller
         $this->fileService = $fileService;
     }
 
-    public function index()
+    public function index(): View
     {
-        $categories = Category::all()->pluck('name', 'id');
-        $categoryTypes = CategoryTypeEnum::labels();
+        $data = $this->prepareFormData();
+        $data['category'] = new Category();
 
-        return view('admin.categories.index', compact('categories', 'categoryTypes'));
+        return view('admin.categories.index', $data);
+    }
+
+    public function edit(Category $category): View
+    {
+        $data = $this->prepareFormData();
+        $data['category'] = $category;
+
+        return view('admin.categories.index', $data);
     }
 
     public function store(CategoryStoreRequest $request)
     {
         $category = $this->categoryService->create($request->validated());
 
-        $this->fileService->upload($category, $request->file('thumbnail'), 'thumbnail');
+        $this->handleThumbnailUpload($category, $request->file('thumbnail'));
 
         return redirect()->route('categories.index');
-    }
-
-    public function edit(Category $category)
-    {
-        $categories = Category::all()->pluck('name', 'id');
-        $categoryTypes = CategoryTypeEnum::labels();
-
-        return view('admin.categories.index', compact('category', 'categories', 'categoryTypes'));
     }
 
     public function update(CategoryUpdateRequest $request, Category $category)
     {
         $category = $this->categoryService->update($category, $request->validated());
 
-        $this->fileService->upload($category, $request->file('thumbnail'), 'thumbnail');
+        $this->handleThumbnailUpload($category, $request->file('thumbnail'));
 
         return redirect()->route('categories.index');
     }
@@ -60,5 +61,18 @@ class CategoryController extends Controller
         $this->categoryService->delete($category);
 
         return redirect()->route('categories.index');
+    }
+
+    private function prepareFormData(): array
+    {
+        return [
+            'categories' => Category::all()->pluck('name', 'id'),
+            'categoryTypes' => CategoryTypeEnum::labels(),
+        ];
+    }
+
+    private function handleThumbnailUpload(Category $category, $file): void
+    {
+        $this->fileService->upload($category, $file, 'thumbnail');
     }
 }
