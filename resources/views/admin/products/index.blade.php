@@ -1,6 +1,12 @@
 <x-layouts.admin title="Products">
-    <h1>Products</h1>
-    <a href="{{ route('products.create') }}">Add new</a>
-    <hr>
-    <livewire:products-datatable />
+    <x-partials.admin.layout.page-title title="Create product"/>
+    <div class="card">
+        <div class="card-header">
+            <a href="{{ route('products.create') }}" class="btn btn-success">
+                <i class="ri-add-line align-bottom me-1"></i> Add Product</a>
+        </div>
+        <div class="card-body border border-dashed border-end-0 border-start-0">
+            <livewire:products-datatable />
+        </div>
+    </div>
 </x-layouts.admin>

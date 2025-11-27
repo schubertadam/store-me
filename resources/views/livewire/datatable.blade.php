@@ -1,28 +1,25 @@
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="row">
-            <div class="col-md-4">
-                <input
-                    wire:model.live.debounce.300ms="search"
-                    type="search"
-                    class="form-control"
-                    placeholder="Keresés az összes mezőben..."
-                >
-            </div>
+<div>
+    <div class="row mb-3">
+        <div class="col-md-4 mb-2 mb-md-0">
+            <input
+                wire:model.live.debounce.300ms="search"
+                type="search"
+                class="form-control"
+                placeholder="Keresés az összes mezőben..."
+            >
+        </div>
 
-            <div class="col-md-2 ms-auto">
-                <select wire:model.live="perPage" class="form-select">
-                    @foreach([10, 25, 50, 100] as $page)
-                        <option value="{{ $page }}">{{ $page }} / oldal</option>
-                    @endforeach
-                </select>
-            </div>
+        <div class="col-md-2 ms-auto">
+            <select wire:model.live="perPage" class="form-select">
+                @foreach([10, 25, 50, 100] as $page)
+                    <option value="{{ $page }}">{{ $page }} / oldal</option>
+                @endforeach
+            </select>
         </div>
     </div>
-
-    <div class="card-body">
+    <div class="row">
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered">
+            <table class="table nowrap align-middle" style="width:100%">
                 <thead>
                 <tr>
                     @foreach ($columns as $fieldName => $label)
@@ -97,7 +94,7 @@
                                     </div>
 
                                 @else
-                                    {{ $this->formatColumnValue($record, $fieldName) }}
+                                    {!! $this->formatColumnValue($record, $fieldName) !!}
                                 @endif
                             </td>
                         @endforeach
@@ -114,7 +111,7 @@
         </div>
     </div>
 
-    <div class="card-footer">
+    <div class="row mt-3">
         {{ $records->links('pagination::bootstrap-5') }}
     </div>
 </div>
