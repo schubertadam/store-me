@@ -3,9 +3,9 @@
     'label' => '',
     'type' => 'text',
     'value' => '',
-    'id' => null,
-    'divClass' => 'mb-3',
-    'autocomplete' => ''
+    'autocomplete' => '',
+    'icon' => null,
+    'iconStart' => true
 ])
 
 @php
@@ -13,31 +13,21 @@
         $label = ucfirst(str_replace('_', ' ', $name));
     }
 
-    $inputClasses = trim(
-        'form-control ' .
-        ($attributes->get('class') ?? '') .
-        ($errors->has($name) ? ' is-invalid' : '')
-    );
+    $class = trim('form-control ' . ($errors->has($name) ? ' is-invalid' : ''));
 @endphp
 
-<div class="{{ $divClass }}">
-
+<div class="mb-3">
     <label for="{{ $name }}" class="form-label">{{ $label }}</label>
 
-    <input
-        type="{{ $type }}"
-        name="{{ $name }}"
-        id="{{ $name }}"
-        value="{{ old($name, $value) }}"
-        {{ $attributes->except('class') }}
-        class="{{ $inputClasses }}"
-        autocomplete="{{ $autocomplete }}"
-    >
+    @if(!is_null($icon))<div class="input-group mb-3">@endif
+        @if(!is_null($icon) && $iconStart)<span class="input-group-text" id="{{ $name }}-addon">{{ $icon }}</span>@endif
+        <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}" value="{{ old($name, $value) }}" class="{{ $class }}" autocomplete="{{ $autocomplete }}">
+        @if(!is_null($iconStart) && !$iconStart)<span class="input-group-text">{{ $icon }}</span>@endif
+        @if(!is_null($icon))</div>@endif
 
     @error($name)
     <div class="invalid-feedback d-block">
         {{ $message }}
     </div>
     @enderror
-
 </div>

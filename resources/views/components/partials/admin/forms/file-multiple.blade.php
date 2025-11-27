@@ -1,42 +1,28 @@
 @props([
     'name',
     'label' => 'Fájlok kiválasztása',
-    'divClass' => 'mb-3',
+    'divClass' => '',
     'currentImageUrls' => [], // Tömbként várja a jelenlegi URL-eket
 ])
 
 @php
-    // Képalapú azonosítók
-    $inputId = $name . '_file_input';
-    $previewContainerId = $inputId . '_preview_container';
-    $previewGalleryId = $inputId . '_gallery'; // Galéria ID
+    $previewContainerId = $name . '_preview_container';
+    $previewGalleryId = $name . '_gallery'; // Galéria ID
 
-    // Név tömbösítése a backend számára
-    $inputName = $name . '[]';
-
-    // CSS osztályok beállítása, figyelembe véve a hibákat
-    $inputClasses = trim(
-        'form-control ' .
-        ($attributes->get('class') ?? '') .
-        // Hibák ellenőrzése a tömbösített néven is
-        ($errors->has($name) ? ' is-invalid' : '')
-    );
+    $class = trim('form-control ' . ($errors->has($name) ? ' is-invalid' : ''));
 @endphp
 
-<div class="{{ $divClass }}">
+<div class="mb-3">
 
-    <label for="{{ $inputId }}" class="form-label">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label">{{ $label }}</label>
 
-    {{-- Kép Galéria Konténer (meglévő és új képeknek) --}}
     <div id="{{ $previewContainerId }}" class="mt-2 mb-3">
-        {{-- Meglévő képek megjelenítése (szerkesztéskor) --}}
         @if (!empty($currentImageUrls))
             <div id="{{ $previewGalleryId }}" class="d-flex flex-wrap gap-2 mb-2">
                 @foreach ($currentImageUrls as $url)
                     <div class="position-relative border p-1">
                         <img src="{{ $url }}" style="max-width: 150px; height: auto;" alt="Jelenlegi kép" />
 
-                        {{-- Opcionális: a régi kép törlésére szolgáló checkbox --}}
                         <div class="form-check mt-1">
                             <input class="form-check-input" type="checkbox" name="delete_existing_{{ $name }}[]" value="{{ basename($url) }}" id="delete_{{ basename($url) }}">
                             <label class="form-check-label small" for="delete_{{ basename($url) }}">
@@ -53,15 +39,7 @@
         </div>
     </div>
 
-    <input
-        type="file"
-        name="{{ $inputName }}" {{-- TÖMBÖSÍTETT NÉV --}}
-        id="{{ $inputId }}"
-        multiple="multiple" {{-- <-- TÖBBSZÖRÖS FÁJL KIVÁLASZTÁSA --}}
-        {{ $attributes->except('class') }}
-        class="{{ $inputClasses }}"
-        onchange="previewMultipleImages(this, 'new_{{ $previewGalleryId }}')"
-    >
+    <input type="file" name="{{ $name }}[]" id="{{ $name }}" multiple="multiple" class="{{ $class }}" onchange="previewMultipleImages(this, 'new_{{ $previewGalleryId }}')">
 
     @error($name)
     <div class="invalid-feedback d-block">

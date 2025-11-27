@@ -2,8 +2,7 @@
     'name',
     'label' => '',
     'options' => [],
-    'value' => '',
-    'searchable' => false
+    'selected' => [],
 ])
 
 @php
@@ -11,16 +10,17 @@
         $label = ucfirst(str_replace('_', ' ', $name));
     }
 
-    $class = trim('form-control ' . ($errors->has($name) ? 'is-invalid' : ''));
+    $currentSelected = old($name, $selected);
+    $class = trim('form-control ' . ($errors->has($name) ? ' is-invalid' : ''));
 @endphp
 
 <div class="mb-3">
+
     <label for="{{ $name }}" class="form-label">{{ $label }}</label>
 
-    <select name="{{ $name }}" id="{{ $name }}" class="{{ $class }}" data-choices data-choices-sorting-false @if(!$searchable) data-choices-search-false @endif>
-        <option value="">Válasszon...</option>
+    <select name="{{ $name }}[]" id="{{ $name }}" class="{{ $class }}" data-choices data-choices-removeItem multiple>
         @foreach ($options as $optionValue => $optionLabel)
-            <option value="{{ $optionValue }}" {{ (string)$optionValue === (string)old($name, $value) ? 'selected' : '' }}>
+            <option value="{{ $optionValue }}" @if(in_array((string)$optionValue, (array)$currentSelected)) selected @endif>
                 {{ $optionLabel }}
             </option>
         @endforeach

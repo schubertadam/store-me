@@ -5,21 +5,15 @@
     'divClass' => 'mb-3',
     'pickerType' => 'datetime',
     'autocomplete' => 'off',
-    'placeholder' => 'Válasszon dátumot és időt...', // <-- ÚJ PROP ALAPÉRTELMEZETT ÉRTÉKKEL
+    'placeholder' => 'Válasszon dátumot és időt...',
 ])
 
 @php
-    // Címke generálása a 'name'-ből
     if (empty($label)) {
         $label = ucfirst(str_replace('_', ' ', $name));
     }
 
-    // CSS osztályok beállítása, figyelembe véve a hibákat
-    $inputClasses = trim(
-        'form-control ' .
-        ($attributes->get('class') ?? '') .
-        ($errors->has($name) ? ' is-invalid' : '')
-    );
+    $class = trim('form-control ' . ($attributes->get('class') ?? '') . ($errors->has($name) ? ' is-invalid' : ''));
 
     if ($placeholder === 'Válasszon dátumot és időt...') {
         if ($pickerType === 'date') {
@@ -29,25 +23,19 @@
         }
     }
 
-    // A mező aktuális értéke
     $currentValue = old($name, $value);
-    // Egyedi ID a JavaScript inicializáláshoz
-    $inputId = 'picker-' . $name;
 @endphp
 
 <div class="{{ $divClass }}">
 
-    <label for="{{ $inputId }}" class="form-label">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label">{{ $label }}</label>
 
-    <input
-        type="text" {{-- A Flatpickr (vagy más) miatt "text" típust használunk --}}
-    name="{{ $name }}"
-        id="{{ $inputId }}"
+    <input type="text" name="{{ $name }}" id="{{ $name }}"
         value="{{ $currentValue }}"
         {{ $attributes->except('class') }}
-        class="{{ $inputClasses }}"
+        class="{{ $class }}"
         autocomplete="{{ $autocomplete }}"
-        data-type="{{ $pickerType }}" {{-- Speciális attribútum a JS-nek --}}
+        data-type="{{ $pickerType }}"
         placeholder="{{ $placeholder }}"
     >
 

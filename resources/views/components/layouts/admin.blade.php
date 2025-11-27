@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/velzon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/material-design-icons/icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/node-waves/waves.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/summernote/summernote-bs5.css') }}">
     @livewireStyles
 
     <script src="{{ asset('assets/js/velzon/layout.js') }}"></script>
@@ -89,11 +90,17 @@
     </footer>
 </div>
 <script src="{{ asset('assets/libs/bootstrap/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/libs/summernote/summernote-bs5.js') }}"></script>
 <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
 <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+<script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+<script src="{{ asset('assets/libs/choices/choices.min.js') }}"></script>
+<script src="{{ asset('assets/libs/fontawesome/all.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/admin_custom.js') }}"></script>
 <script src="{{ asset('assets/js/velzon/app.js') }}"></script>
+<script src="{{ asset('assets/js/velzon/custom.js') }}"></script>
+
 @livewireScripts
 </body>
 </html>
