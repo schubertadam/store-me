@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Services\CategoryService;
 use App\Services\FileService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -30,11 +31,18 @@ class ProductController extends Controller
 
     public function create()
     {
-        $rootCategories = Category::whereNull('category_id')->with('children')->get();
-        $categories = $this->categoryService->buildCategoryTreeOptions($rootCategories);
-        $statuses = ProductStatusEnum::labels();
+        $data = $this->prepareFormData();
+        $data['product'] = new Product();
 
-        return view('admin.products.create', compact('categories', 'statuses'));
+        return view('admin.products.create', $data);
+    }
+
+    public function edit(Product $product)
+    {
+        $data = $this->prepareFormData();
+        $data['product'] = $product;
+
+        return view('admin.products.edit', $data);
     }
 
     public function store(ProductStoreRequest $request)
@@ -42,20 +50,9 @@ class ProductController extends Controller
         $data = $request->validated();
         $product = Product::create($data);
 
-        $this->fileService->upload($product, $request->file('thumbnail'), 'thumbnail');
-        $this->fileService->uploadMany($product, $request->file('gallery'), 'gallery');
+        $this->uploadProductMedia($request, $product);
 
         return redirect()->route('products.index');
-    }
-
-    public function edit(Product $product)
-    {
-        $rootCategories = Category::whereNull('category_id')->with('children')->get();
-        $categories = $this->categoryService->buildCategoryTreeOptions($rootCategories);
-        $statuses = ProductStatusEnum::labels();
-        $saleTypes = ProductSaleTypeEnum::labels();
-
-        return view('admin.products.edit', compact('product', 'categories', 'statuses', 'saleTypes'));
     }
 
     public function update(ProductUpdateRequest $request, Product $product)
@@ -63,8 +60,7 @@ class ProductController extends Controller
         $data = $request->validated();
         $product->update($data);
 
-        $this->fileService->upload($product, $request->file('thumbnail'), 'thumbnail');
-        $this->fileService->uploadMany($product, $request->file('gallery'), 'gallery');
+        $this->uploadProductMedia($request, $product);
 
         return redirect()->route('products.index');
     }
@@ -72,6 +68,24 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+
         return redirect()->route('products.index');
+    }
+
+    private function prepareFormData(): array
+    {
+        $rootCategories = Category::whereNull('category_id')->with('children')->get();
+
+        return [
+            'categories' => $this->categoryService->buildCategoryTreeOptions($rootCategories),
+            'statuses' => ProductStatusEnum::labels(),
+            'saleTypes' => ProductSaleTypeEnum::labels(),
+        ];
+    }
+
+    private function uploadProductMedia(Request $request, Product $product): void
+    {
+        $this->fileService->upload($product, $request->file('thumbnail'), 'thumbnail');
+        $this->fileService->uploadMany($product, $request->file('gallery'), 'gallery');
     }
 }
