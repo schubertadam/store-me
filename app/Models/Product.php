@@ -45,6 +45,11 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
+    public function getThumbnail(): string
+    {
+        return $this->getFirstMediaUrl('thumbnail');
+    }
+
     public function getGalleryUrls(): array
     {
         return $this->getMedia('gallery')->map(fn($media) => $media->getUrl())->toArray();

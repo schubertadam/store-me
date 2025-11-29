@@ -84,7 +84,7 @@
                 <h5 class="card-title mb-0">Thumbnail</h5>
             </div>
             <div class="card-body pb-4">
-                <x-partials.admin.forms.file-avatar name="thumbnail"/>
+                <x-partials.admin.forms.file-avatar name="thumbnail" :current-image-url="$product->getThumbnail()"/>
             </div>
         </div>
         <div class="card">
