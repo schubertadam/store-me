@@ -112,6 +112,6 @@
     </div>
 
     <div class="row mt-3">
-        {{ $records->links('pagination::bootstrap-5') }}
+        {{ $records->links('pagination::velzon') }}
     </div>
 </div>
