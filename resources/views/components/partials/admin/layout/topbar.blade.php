@@ -107,8 +107,9 @@
         <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
             <div class="dropdown-divider"></div>
-            <form method="POST" action="#">
+            <form method="post" action="{{ route('logout') }}">
                 @csrf
+                @method('DELETE')
 
                 <button type="submit" class="dropdown-item">
                     <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SummernoteController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', function () {
@@ -15,3 +16,5 @@ Route::resource('categories', CategoryController::class)->except('create', 'show
 Route::resource('products', ProductController::class)->except('show');
 
 Route::post('/summernote/upload', [SummernoteController::class, 'upload'])->name('summernote.upload');
+
+Route::delete('logout', LogoutController::class)->name('logout');
