@@ -26,6 +26,10 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->web(append:[
+            \App\Http\Middleware\EnsureCartExistsMiddleware::class
+        ]);
+
         $middleware->redirectGuestsTo(fn (Request $request) => route('login.index'));
         $middleware->redirectUsersTo(fn (Request $request) => route('dashboard'));
     })
