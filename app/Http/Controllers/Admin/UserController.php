@@ -7,6 +7,7 @@ use App\Events\UserInvitedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserStoreRequest;
 use App\Http\Requests\Admin\UserUpdateRequest;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\TokenService;
 use App\Services\UserService;
@@ -31,7 +32,10 @@ class UserController extends Controller
 
     public function create(): View
     {
-        return view('admin.users.create');
+        $data = $this->prepareFormData();
+        $data['user'] = new User();
+
+        return view('admin.users.create', $data);
     }
 
     public function store(UserStoreRequest $request): RedirectResponse
@@ -50,7 +54,10 @@ class UserController extends Controller
 
     public function edit(User $user): View
     {
-        return view('admin.users.edit', compact('user'));
+        $data = $this->prepareFormData();
+        $data['user'] = $user;
+
+        return view('admin.users.edit', $data);
     }
 
     public function update(UserUpdateRequest $request, User $user): RedirectResponse
@@ -58,5 +65,14 @@ class UserController extends Controller
         $this->userService->update($user, $request->validated());
 
         return redirect()->route('users.index');
+    }
+
+    private function prepareFormData(): array
+    {
+        $roles = Role::query()->pluck('name', 'id');
+
+        return [
+            'roles' => $roles,
+        ];
     }
 }

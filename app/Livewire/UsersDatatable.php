@@ -27,14 +27,12 @@ class UsersDatatable extends Datatable
     {
         return [
             [
-                'label' => 'Szerkesztés',
                 'route' => route('users.edit', $record),
                 'class' => 'primary',
                 'icon'  => 'edit',
                 'type'  => 'link',
             ],
             [
-                'label' => 'Törlés',
                 'class' => 'danger',
                 'icon'  => 'trash',
                 'type'  => 'livewire',

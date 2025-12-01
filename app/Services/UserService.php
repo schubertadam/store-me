@@ -14,7 +14,11 @@ class UserService
      */
     public function create(array $data): User
     {
-        return User::query()->create($data);
+        $user = User::query()->create($data);
+
+        $user->roles()->attach($data['roles']);
+
+        return $user;
     }
 
     public function activate(Token $token): bool
@@ -32,6 +36,7 @@ class UserService
     public function update(User $user, array $data): User
     {
         $user->update($data);
+        $user->roles()->sync($data['roles']);
 
         return $user;
     }

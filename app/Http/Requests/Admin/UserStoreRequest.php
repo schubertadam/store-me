@@ -11,12 +11,14 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'roles' => ['required', 'array'],
+            'roles.*' => ['required', 'exists:roles,id'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ];
     }
 
     public function authorize(): bool
     {
-        return auth()->check();
+        return auth()->check() && auth()->user()->can('create-user');
     }
 }
