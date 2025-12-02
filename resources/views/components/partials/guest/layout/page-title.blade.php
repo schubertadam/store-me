@@ -1,0 +1,12 @@
+<section class="wrapper bg-gray">
+    <div class="container py-12 py-md-16 text-center">
+        <div class="row">
+            <div class="col-lg-10 col-xxl-8 mx-auto">
+                <h1 class="display-1 mb-3">{{ $title }}</h1>
+                @isset($lead)
+                    <p class="lead mb-1">{{ $lead }}</p>
+                @endisset
+            </div>
+        </div>
+    </div>
+</section>
