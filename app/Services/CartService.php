@@ -43,6 +43,28 @@ class CartService
         return Cart::create($data);
     }
 
+    public function getCartSubtotal(Cart $cart): int
+    {
+        $summary = 0;
+
+        foreach ($cart->items as $item) {
+            $summary += $item->price_at_addition * $item->quantity;
+        }
+
+        return $summary;
+    }
+
+    public function getCartItemsNumber(Cart $cart): int
+    {
+        $number = 0;
+
+        foreach ($cart->items as $item) {
+            $number += $item->quantity;
+        }
+
+        return $number;
+    }
+
     public function mergeCarts(string $guestSessionId, int $userId): void
     {
         // 1. Kosarak azonosítása

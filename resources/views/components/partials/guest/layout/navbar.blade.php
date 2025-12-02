@@ -46,12 +46,7 @@
             <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-search"><i class="fa fa-search"></i></a></li>
                 <li class="nav-item">
-                    <a class="nav-link position-relative d-flex flex-row align-items-center" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span class="badge badge-cart bg-primary">
-                            5
-                        </span>
-                    </a>
+                    <livewire:cart.cart-icon/>
                 </li>
                 <li class="nav-item d-lg-none">
                     <button class="hamburger offcanvas-nav-btn"><span></span></button>
@@ -70,38 +65,12 @@
     </div>
     <div class="offcanvas-body d-flex flex-column">
         <div class="shopping-cart">
-
+            @foreach(request()->get('cart')->items as $item)
+                <livewire:cart.cart-item-row :item="$item" :key="$item->id" />
+            @endforeach
         </div>
 
-        <div class="offcanvas-footer flex-column text-center">
-
-            {{-- Alösszeg --}}
-            <div class="d-flex w-100 justify-content-between mb-2">
-                <span>Termékek nettó ára:</span>
-                <span class="h6 mb-0">500</span>
-            </div>
-
-            {{-- Szállítási díj (opcionális megjelenítés) --}}
-            <div class="d-flex w-100 justify-content-between mb-4">
-                <span>Szállítási díj:</span>
-                <span class="h6 mb-0">500</span>
-            </div>
-
-            {{-- VÉGÖSSZEG --}}
-            <div class="d-flex w-100 justify-content-between mb-4">
-                <span class="fw-bold">Végösszeg:</span>
-                <span class="h4 mb-0 text-success">500</span>
-            </div>
-
-            {{-- Checkout Gomb --}}
-            <a href="#" class="btn btn-primary btn-icon btn-icon-start rounded w-100 mb-4">
-                <i class="fas fa-credit-card fs-18"></i> Tovább a Pénztárhoz
-            </a>
-
-            {{-- Opcionális üzenet --}}
-            <p class="fs-14 mb-0">Ingyenes szállítás 500 felett</p>
-        </div>
-
+        <livewire:cart.cart-summary />
     </div>
 </div>
 {{-- CART END --}}
