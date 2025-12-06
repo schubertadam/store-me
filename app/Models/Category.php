@@ -66,4 +66,9 @@ class Category extends Model implements HasMedia
     {
         return $this->getFirstMediaUrl('thumbnail', 'thumb');
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

@@ -65,9 +65,7 @@
     </div>
     <div class="offcanvas-body d-flex flex-column">
         <div class="shopping-cart">
-            @foreach(request()->get('cart')->items as $item)
-                <livewire:cart.cart-item-row :item="$item" :key="$item->id" />
-            @endforeach
+            <livewire:cart.cart-item-list/>
         </div>
 
         <livewire:cart.cart-summary />

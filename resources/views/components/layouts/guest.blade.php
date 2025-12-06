@@ -21,6 +21,7 @@
     </div>
 
     @include('components.partials.guest.layout.footer')
+    <script src="{{ asset('assets/js/sandbox/custom.js') }}"></script>
     <script src="{{ asset('assets/js/sandbox/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/sandbox/theme.js') }}"></script>
 </body>

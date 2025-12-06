@@ -23,19 +23,17 @@ class CartManager extends Component
         $product = Product::find($productId)->first();
         $cart = request()->get('cart');
 
-        if ($cart->items()->where('product_id', $productId)->exists()) {
-            $item = $cart->items()->where('product_id', $productId)->first();
+        $item = $cart->items()->where('product_id', $productId)->first();
+
+        if ($item) {
             $item->quantity += 1;
             $item->save();
         } else {
-            $cartItem = CartItem::create([
-                'cart_id' => $cart->id,
+            $cart->items()->create([
                 'product_id' => $product->id,
                 'quantity' => 1,
                 'price_at_addition' => $product->price,
             ]);
-
-            $cart->items()->attach($cartItem->id);
         }
 
         $this->dispatch('cartUpdated');
