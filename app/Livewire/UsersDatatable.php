@@ -27,7 +27,7 @@ class UsersDatatable extends Datatable
     {
         return [
             [
-                'route' => route('users.edit', $record),
+                'route' => route('admin.users.edit', $record),
                 'class' => 'primary',
                 'icon'  => 'edit',
                 'type'  => 'link',

@@ -4,8 +4,8 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
-                    @if(Route::is('categories.index'))
-                        <x-partials.admin.form action="{{ route('categories.store') }}" button="Add" has-file="true">
+                    @if(Route::is('admin.categories.index'))
+                        <x-partials.admin.form action="{{ route('admin.categories.store') }}" button="Add" has-file="true">
                             <x-partials.admin.shared.category-form
                                 :category="$category"
                                 :categories="$categories"
@@ -13,7 +13,7 @@
                             />
                         </x-partials.admin.form>
                     @else
-                        <x-partials.admin.form action="{{ route('categories.update', $category) }}" method="PATCH" button="Update" has-file="true">
+                        <x-partials.admin.form action="{{ route('admin.categories.update', $category) }}" method="PATCH" button="Update" has-file="true">
                             <x-partials.admin.shared.category-form
                                 :category="$category"
                                 :categories="$categories"

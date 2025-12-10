@@ -26,7 +26,7 @@ class ProductsDatatable extends Datatable
     {
         return [
             [
-                'route' => route('products.edit', $record),
+                'route' => route('admin.products.edit', $record),
                 'class' => 'primary',
                 'icon'  => 'edit',
                 'type'  => 'link',
@@ -36,7 +36,7 @@ class ProductsDatatable extends Datatable
                 'icon'  => 'trash',
                 'type'  => 'delete-form',
                 'method' => 'delete',
-                'route' => route('products.destroy', $record),
+                'route' => route('admin.products.destroy', $record),
             ],
         ];
     }

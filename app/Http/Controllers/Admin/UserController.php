@@ -49,7 +49,7 @@ class UserController extends Controller
             event(new UserInvitedEvent($user, $token));
         }
 
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 
     public function edit(User $user): View
@@ -64,7 +64,7 @@ class UserController extends Controller
     {
         $this->userService->update($user, $request->validated());
 
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 
     private function prepareFormData(): array

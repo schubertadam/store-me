@@ -52,7 +52,7 @@ class ProductController extends Controller
 
         $this->uploadProductMedia($request, $product);
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.products.index');
     }
 
     public function update(ProductUpdateRequest $request, Product $product)
@@ -62,14 +62,14 @@ class ProductController extends Controller
 
         $this->uploadProductMedia($request, $product);
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.products.index');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.products.index');
     }
 
     private function prepareFormData(): array

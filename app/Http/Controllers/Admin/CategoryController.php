@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
         $this->handleThumbnailUpload($category, $request->file('thumbnail'));
 
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     public function update(CategoryUpdateRequest $request, Category $category)
@@ -53,14 +53,14 @@ class CategoryController extends Controller
 
         $this->handleThumbnailUpload($category, $request->file('thumbnail'));
 
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     public function destroy(Category $category)
     {
         $this->categoryService->delete($category);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     private function prepareFormData(): array

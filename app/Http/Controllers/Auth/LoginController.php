@@ -36,6 +36,6 @@ class LoginController extends Controller
         $this->authService->login($data['email'], $data['password'], session()->getId());
         $this->cartService->mergeCarts($guestSessionId, auth()->id());
 
-        return redirect()->intended(route('dashboard'));
+        return redirect()->intended(route('admin.dashboard'));
     }
 }

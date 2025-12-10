@@ -1,6 +1,6 @@
 <x-layouts.admin title="Edit product">
     <x-partials.admin.layout.page-title title="Edit: {{ $product->name }}"/>
-    <x-partials.admin.form action="{{ route('products.update', $product) }}" method="PATCH" has-file="true">
+    <x-partials.admin.form action="{{ route('admin.products.update', $product) }}" method="PATCH" has-file="true">
         <x-partials.admin.shared.product-form
             :product="$product"
             :statuses="$statuses"

@@ -30,7 +30,7 @@ class ForgotPasswordController extends Controller
 
         event(new PasswordResetRequestedEvent($token->email, $token));
 
-        return redirect()->route('forgot-password.success');
+        return redirect()->route('admin.forgot-password.success');
     }
 
     public function success(): View

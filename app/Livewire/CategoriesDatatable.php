@@ -26,7 +26,7 @@ class CategoriesDatatable extends Datatable
         return [
             [
                 'label' => 'Szerkesztés',
-                'route' => route('categories.edit', $record),
+                'route' => route('admin.categories.edit', $record),
                 'class' => 'primary',
                 'icon'  => 'edit',
                 'type'  => 'link',
@@ -36,7 +36,7 @@ class CategoriesDatatable extends Datatable
                 'class' => 'danger',
                 'icon'  => 'trash',
                 'type'  => 'delete-form',
-                'route' => route('categories.destroy', $record),
+                'route' => route('admin.categories.destroy', $record),
             ],
         ];
     }

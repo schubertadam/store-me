@@ -61,7 +61,7 @@
             data.append('image', file);
 
             $.ajax({
-                url: '{{ route('summernote.upload') }}',
+                url: '{{ route('admin.summernote.upload') }}',
                 method: 'POST',
                 data: data,
                 processData: false,

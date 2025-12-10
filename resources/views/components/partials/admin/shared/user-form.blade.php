@@ -25,7 +25,7 @@
 @error('custom')
 <p>{{ $message }}</p>
 @enderror
-@if(request()->routeIs('users.create'))
+@if(request()->routeIs('admin.users.create'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const checkbox = document.getElementById('set_password_checkbox');
