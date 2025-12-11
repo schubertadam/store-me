@@ -13,7 +13,7 @@
             </div>
 
             <div class="p-2 mt-4">
-                <x-partials.admin.form action="{{ route('forgot-password.store') }}">
+                <x-partials.admin.form action="{{ route('admin.forgot-password.store') }}">
                     <x-partials.admin.forms.input name="email" type="email" autocomplete="email"/>
 
                     @error('custom')
@@ -29,6 +29,6 @@
     </div>
 
     <div class="mt-4 text-center">
-        <p class="mb-0">Wait, I remember my password... <a href="{{ route('login.index') }}" class="fw-semibold text-primary text-decoration-underline">Click here</a> </p>
+        <p class="mb-0">Wait, I remember my password... <a href="{{ route('admin.login.index') }}" class="fw-semibold text-primary text-decoration-underline">Click here</a> </p>
     </div>
 </x-layouts.auth>

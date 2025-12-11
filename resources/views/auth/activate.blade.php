@@ -8,7 +8,7 @@
             </div>
             <div class="mt-4 pt-2">
                 <h4>Well done !</h4>
-                <p class="text-muted mx-4">Activation successful. Please <a href="{{ route('login.index') }}">log in</a> to use our webshop.</p>
+                <p class="text-muted mx-4">Activation successful. Please <a href="{{ route('admin.login.index') }}">log in</a> to use our webshop.</p>
             </div>
         </div>
     </div>

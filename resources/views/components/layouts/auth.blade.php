@@ -29,7 +29,7 @@
                 <div class="col-lg-12">
                     <div class="text-center mt-sm-5 mb-4 text-white-50">
                         <div>
-                            <a href="{{ route('login.index') }}" class="d-inline-block auth-logo">
+                            <a href="{{ route('admin.login.index') }}" class="d-inline-block auth-logo">
                                 <h1>Store Me</h1>
                             </a>
                         </div>

@@ -32,8 +32,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\EnsureCartExistsMiddleware::class
         ]);
 
-        $middleware->redirectGuestsTo(fn (Request $request) => route('login.index'));
-        $middleware->redirectUsersTo(fn (Request $request) => route('dashboard'));
+        $middleware->redirectGuestsTo(fn (Request $request) => route('admin.login.index'));
+        $middleware->redirectUsersTo(fn (Request $request) => route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Throwable $e, ExceptionRequest $request) {
@@ -42,7 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             if ($e instanceof AuthenticationException) {
-                return redirect()->route('login.index')
+                return redirect()->route('admin.login.index')
                     ->withErrors(['custom' => __('Your session has expired. Please log in again.')])->withInput();
             }
 

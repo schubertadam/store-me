@@ -10,7 +10,7 @@
                 <h4>Well done !</h4>
                 <p class="text-muted mx-4">Please check your inbox for further instructions!</p>
                 <div class="mt-4">
-                    <a href="{{ route('login.index') }}" class="btn btn-success w-100">Back to Login</a>
+                    <a href="{{ route('admin.login.index') }}" class="btn btn-success w-100">Back to Login</a>
                 </div>
             </div>
         </div>

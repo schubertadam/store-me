@@ -6,7 +6,7 @@
                 <p class="text-muted">Get your free account now</p>
             </div>
             <div class="p-2 mt-4">
-                <x-partials.admin.form action="{{ route('register.store') }}">
+                <x-partials.admin.form action="{{ route('admin.register.store') }}">
                     <x-partials.admin.forms.input name="name"/>
                     <x-partials.admin.forms.input name="email" type="email"/>
                     <x-partials.admin.forms.input-password name="password"/>
@@ -25,6 +25,6 @@
     </div>
 
     <div class="mt-4 text-center">
-        <p class="mb-0">Already have an account ? <a href="{{ route('login.index') }}" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
+        <p class="mb-0">Already have an account ? <a href="{{ route('admin.login.index') }}" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
     </div>
 </x-layouts.auth>

@@ -6,7 +6,7 @@
                 <p class="text-muted">Your new password must be different from previous used password.</p>
             </div>
             <div class="p-2 mt-4">
-                <x-partials.admin.form action="{{ route('reset-password.update', $token) }}" method="PATCH">
+                <x-partials.admin.form action="{{ route('admin.reset-password.update', $token) }}" method="PATCH">
                     <x-partials.admin.forms.input name="email" type="email" autocomplete="email"/>
                     <x-partials.admin.forms.input name="password" type="password"/>
                     <x-partials.admin.forms.input name="password_confirmation" type="password"/>
@@ -24,6 +24,6 @@
     </div>
 
     <div class="mt-4 text-center">
-        <p class="mb-0">Wait, I remember my password... <a href="{{ route('login.index') }}" class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
+        <p class="mb-0">Wait, I remember my password... <a href="{{ route('admin.login.index') }}" class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
     </div>
 </x-layouts.auth>

@@ -6,9 +6,9 @@
                 <p class="text-muted">Sign in to continue to Store Me.</p>
             </div>
             <div class="p-2 mt-4">
-                <x-partials.admin.form action="{{ route('login.store') }}">
+                <x-partials.admin.form action="{{ route('admin.login.store') }}">
                     <x-partials.admin.forms.input name="email" type="email" autocomplete="email"/>
-                    <x-partials.admin.forms.input-password name="password" autocomplete="current-password" float-route="{{ route('forgot-password.create') }}" float-route-name="{{ __('Forgot Password?') }}"/>
+                    <x-partials.admin.forms.input-password name="password" autocomplete="current-password" float-route="{{ route('admin.forgot-password.create') }}" float-route-name="{{ __('Forgot Password?') }}"/>
 
                     @error('custom')
                     <p>{{ $message }}</p>
@@ -23,6 +23,6 @@
     </div>
 
     <div class="mt-4 text-center">
-        <p class="mb-0">Don't have an account ? <a href="{{ route('register.create') }}" class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
+        <p class="mb-0">Don't have an account ? <a href="{{ route('admin.register.create') }}" class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
     </div>
 </x-layouts.auth>
