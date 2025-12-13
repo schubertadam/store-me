@@ -27,6 +27,6 @@ class ResetPasswordController extends Controller
 
         $this->userService->update($user, ['password' => $request->validated()['password']]);
 
-        return redirect()->route('admin.login.index');
+        return redirect()->route('login.index');
     }
 }

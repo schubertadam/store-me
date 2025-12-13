@@ -1,34 +1,22 @@
-<x-layouts.auth title="Forgot password">
-    <div class="card mt-4">
-        <div class="card-body p-4">
-            <div class="text-center mt-2">
-                <h5 class="text-primary">Forgot Password?</h5>
-                <p class="text-muted">Reset password with Store Me</p>
+<x-layouts.auth title="{{ __('Forgot password') }}">
+    <x-slot:title-bar>
+        <x-partials.guest.layout.title-bars.overlap title="{{ __('Forgot password') }}"/>
+    </x-slot:title-bar>
 
-                <lord-icon src="https://cdn.lordicon.com/rhvddzym.json" trigger="loop" colors="primary:#0ab39c" class="avatar-xl"></lord-icon>
-            </div>
+    <div class="card">
+        <div class="card-body p-11 text-center">
+            <h2 class="mb-3 text-start">Forgot your password?</h2>
+            <p class="lead mb-6 text-start">Enter your email and we will reset it for you!</p>
 
-            <div class="alert border-0 alert-warning text-center mb-2 mx-2" role="alert">
-                Enter your email and instructions will be sent to you!
-            </div>
+            <x-partials.guest.form action="{{ route('forgot-password.store') }}" button="Send Reset Link" class="text-start mb-3">
+                <x-partials.guest.form-inputs.input name="email" type="email"/>
+            </x-partials.guest.form>
 
-            <div class="p-2 mt-4">
-                <x-partials.admin.form action="{{ route('admin.forgot-password.store') }}">
-                    <x-partials.admin.forms.input name="email" type="email" autocomplete="email"/>
+            <div class="divider-icon my-4">or</div>
 
-                    @error('custom')
-                    <p>{{ $message }}</p>
-                    @enderror
-
-                    <div class="mt-4">
-                        <button class="btn btn-success w-100" type="submit">Send Reset Link</button>
-                    </div>
-                </x-partials.admin.form>
-            </div>
+            <p class="mb-0">
+                Wait, I remember my password... <a href="{{ route('login.index') }}" class="hover">Sign in</a>
+            </p>
         </div>
-    </div>
-
-    <div class="mt-4 text-center">
-        <p class="mb-0">Wait, I remember my password... <a href="{{ route('admin.login.index') }}" class="fw-semibold text-primary text-decoration-underline">Click here</a> </p>
     </div>
 </x-layouts.auth>

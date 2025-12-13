@@ -1,28 +1,25 @@
-<x-layouts.auth title="Login">
-    <div class="card mt-4">
-        <div class="card-body p-4">
-            <div class="text-center mt-2">
-                <h5 class="text-primary">Welcome Back !</h5>
-                <p class="text-muted">Sign in to continue to Store Me.</p>
-            </div>
-            <div class="p-2 mt-4">
-                <x-partials.admin.form action="{{ route('admin.login.store') }}">
-                    <x-partials.admin.forms.input name="email" type="email" autocomplete="email"/>
-                    <x-partials.admin.forms.input-password name="password" autocomplete="current-password" float-route="{{ route('admin.forgot-password.create') }}" float-route-name="{{ __('Forgot Password?') }}"/>
+<x-layouts.auth title="{{ __('Login') }}">
+    <x-slot:title-bar>
+        <x-partials.guest.layout.title-bars.overlap title="{{ __('Login') }}"/>
+    </x-slot:title-bar>
 
-                    @error('custom')
-                    <p>{{ $message }}</p>
-                    @enderror
+    <div class="card">
+        <div class="card-body p-11 text-center">
+            <h2 class="mb-3 text-start">Welcome Back</h2>
+            <p class="lead mb-6 text-start">Fill your email and password to sign in.</p>
 
-                    <div class="mt-4">
-                        <button class="btn btn-success w-100" type="submit">Sign In</button>
-                    </div>
-                </x-partials.admin.form>
-            </div>
+            <x-partials.guest.form action="{{ route('login.store') }}" button="Login" class="text-start mb-3">
+                <x-partials.guest.form-inputs.input name="email" type="email"/>
+                <x-partials.guest.form-inputs.input name="password" type="password"/>
+            </x-partials.guest.form>
+
+            <div class="divider-icon my-4">or</div>
+            <p class="mb-1">
+                <a href="{{ route('forgot-password.create') }}" class="hover">Forgot Password?</a>
+            </p>
+            <p class="mb-0">
+                Don't have an account? <a href="{{ route('register.create') }}" class="hover">Sign up</a>
+            </p>
         </div>
-    </div>
-
-    <div class="mt-4 text-center">
-        <p class="mb-0">Don't have an account ? <a href="{{ route('admin.register.create') }}" class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
     </div>
 </x-layouts.auth>

@@ -34,7 +34,7 @@ class RegisterController extends Controller
 
         event(new UserRegisteredEvent($user, $token));
 
-        return redirect()->route('admin.register.success');
+        return redirect()->route('register.success');
     }
 
     public function success(): View
