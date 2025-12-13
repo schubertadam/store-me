@@ -17,7 +17,13 @@ class CartItemList extends Component
 
     public function mount(): void
     {
-        $this->items = request()->get('cart')->items;
+        $cart = request()->get('cart');
+
+        if (is_null($cart)) {
+            $this->items = [];
+        } else {
+            $this->items = $cart->items;
+        }
     }
 
     public function updateCart()

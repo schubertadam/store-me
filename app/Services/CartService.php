@@ -43,8 +43,12 @@ class CartService
         return Cart::create($data);
     }
 
-    public function getCartSubtotal(Cart $cart): int
+    public function getCartSubtotal(?Cart $cart): int
     {
+        if (is_null($cart)) {
+            return 0;
+        }
+
         $summary = 0;
 
         foreach ($cart->items as $item) {
@@ -54,8 +58,12 @@ class CartService
         return $summary;
     }
 
-    public function getCartItemsNumber(Cart $cart): int
+    public function getCartItemsNumber(?Cart $cart): int
     {
+        if (is_null($cart)) {
+            return 0;
+        }
+
         $number = 0;
 
         foreach ($cart->items as $item) {
